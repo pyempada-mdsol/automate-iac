@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dual Panel Page</title>
+</head>
+<body>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <h2>Left Panel</h2>
+            <ul id="left-panel-list"></ul>
+        </div>
+        <div style="width: 50%;">
+            <h2>Right Panel</h2>
+            <ul id="right-panel-list"></ul>
+            <button id="save-button">Save</button>
+            <button id="submit-button">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const leftPanelList = document.getElementById('left-panel-list');
+        const rightPanelList = document.getElementById('right-panel-list');
+
+        function addItemToRightPanel(item) {
+            const newLi = document.createElement('li');
+
+            // add text node to li element
+            const itemText = document.createTextNode(item);
+            newLi.appendChild(itemText);
+
+            // add button to remove item from right panel
+            const removeButton = document.createElement('button');
+            const removeText = document.createTextNode('-');
+            removeButton.appendChild(removeText);
+            removeButton.addEventListener('click', function() {
+                newLi.remove();
+            });
+            newLi.appendChild(removeButton);
+
+            rightPanelList.appendChild(newLi);
+        }
+
+        function addItemToLeftPanel(item) {
+            const newLi = document.createElement('li');
+
+            // add text node to li element
+            const itemText = document.createTextNode(item);
+            newLi.appendChild(itemText);
+
+            // add button to move item to right panel
+            const addButton = document.createElement('button');
+            const addText = document.createTextNode('+');
+            addButton.appendChild(addText);
+            addButton.addEventListener('click', function() {
+                addItemToRightPanel(item);
+            });
+            newLi.appendChild(addButton);
+
+            leftPanelList.appendChild(newLi);
+        }
+
+        addItemToLeftPanel('Item 1');
+        addItemToLeftPanel('Item 2');
+        addItemToLeftPanel('Item 3');
+        addItemToLeftPanel('Item 4');
+
+    </script>
+</body>
+</html>
