@@ -1,7 +1,7 @@
 let btn = document.querySelectorAll("#plus");
 // let addDetails =document.querySelector("block")
 for (let i = 0; i < btn.length; i++) {
-  btn[i].addEventListener("click", btnClass);
+  btn[i].addEventListener ("click", btnClass);
 }
 
 //  let minusBtn = document.querySelectorAll(".minus")
