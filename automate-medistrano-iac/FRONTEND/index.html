@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h1>Medidata</h1>
+        <div class="split left">
+            <!-- <div class="centered">
+                <label for="resource">aws_s3_bucket</label><br>
+                <label for="resource">aws_iam_role</label><br>
+                <label for="resource">aws_cloudwatch_log_group</label><br>
+                <label for="resource">aws_api_gateway</label><br>
+                <label for="resource">aws_lambda_function</label>
+            </div> -->
+            <div class="resource item">
+                <div>
+                    <span class="head left"><b><u>RESOURCES</u></b></span>
+                    <!-- <div class="li"></div> -->
+                </div>
+                
+                <ul class="resource-container">
+                    <li class="resource-item"><button class="s3" id="plus">+</button>aws_s3_bucket</li>
+                    <li class="resource-item"><button class="iam" id="plus">+</button>aws_iam_role</li>
+                    <li class="resource-item"><button class="cloudwatch" id="plus">+</button>aws_cloudwatch_log_group</li>
+                    <li class="resource-item"><button class="api" id="plus">+</button>aws_api_gateway</li>
+                    <li class="resource-item"><button class="lambda" id="plus">+</button>aws_lambda_function</li>
+                </ul>
+    
+            </div>
+            
+
+            <div class="resource-data item">
+                <div>
+                    <span class="head left"><b><u>DATA RESOURCES</u></b></span>
+                    <!-- <div class="li"></div> -->
+                </div>
+                
+                <ul class="resource-container">
+                    <li class="resource-item"><button class="s3_arn" id="plus">+</button>aws_s3_bucket_arn</li>
+                    <li class="resource-item"><button class="iam_arn" id="plus">+</button>aws_iam_role_arn</li>
+                    <li class="resource-item"><button class="cloudwatch_arn" id="plus">+</button>aws_cloudwatch_log_group_arn</li>
+                    <li class="resource-item"><button class="api_arn" id="plus">+</button>aws_api_gateway_arn</li>
+                    <li class="resource-item"><button class="lambda_arn" id="plus">+</button>aws_lambda_function_arn</li>
+                </ul>
+            </div>
+            
+            
+        </div>
+             
+        <div class="split right">
+            <!-- <div class="centered">
+            </div> -->
+            <div>
+                <span class="head right"><b><u>RESOURCES DETAILS</u></b></span>
+                <!-- <div class="li"></div> -->
+            </div>
+            <div>
+                <form >
+                         <div class="projDetail info2">
+                            <input type="text" placeholder="PROJECT NAME">
+                            <input type="text" placeholder="GIT REPO">
+                         </div>
+
+                         <div class="block">
+                            
+                        </div>
+                         <div class="info2">
+                            <button>SAVE</button>
+                            <button>SUBMIT</button>
+                         </div>
+            
+                         
+                </form>
+    
+            </div>
+            
+        </div>
+    </div>
+    
+        
+        
+    <script src="script.js"></script>
+</body>
+
+</html>
