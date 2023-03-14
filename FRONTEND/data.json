@@ -1,0 +1,14 @@
+[
+  {
+    "name": "aws_s3_bucket"
+  },
+  {
+    "name": "aws_iam_role"
+  },
+  {
+    "name": "aws_lambda_function"
+  },
+  {
+    "name": "aws_api_gateway"
+  }
+]

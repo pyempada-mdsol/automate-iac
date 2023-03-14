@@ -1,70 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dual Panel Page</title>
-</head>
-<body>
-    <div style="display: flex;">
-        <div style="width: 50%;">
-            <h2>Left Panel</h2>
-            <ul id="left-panel-list"></ul>
-        </div>
-        <div style="width: 50%;">
-            <h2>Right Panel</h2>
-            <ul id="right-panel-list"></ul>
-            <button id="save-button">Save</button>
-            <button id="submit-button">Submit</button>
-        </div>
-    </div>
-
-    <script>
-        const leftPanelList = document.getElementById('left-panel-list');
-        const rightPanelList = document.getElementById('right-panel-list');
-
-        function addItemToRightPanel(item) {
-            const newLi = document.createElement('li');
-
-            // add text node to li element
-            const itemText = document.createTextNode(item);
-            newLi.appendChild(itemText);
-
-            // add button to remove item from right panel
-            const removeButton = document.createElement('button');
-            const removeText = document.createTextNode('-');
-            removeButton.appendChild(removeText);
-            removeButton.addEventListener('click', function() {
-                newLi.remove();
-            });
-            newLi.appendChild(removeButton);
-
-            rightPanelList.appendChild(newLi);
+<DOCTYPE html>
+  <html>
+    <head>
+      <title>Two Panels Body</title>
+      <style>
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: stretch;
+          padding: 10px;
         }
 
-        function addItemToLeftPanel(item) {
-            const newLi = document.createElement('li');
-
-            // add text node to li element
-            const itemText = document.createTextNode(item);
-            newLi.appendChild(itemText);
-
-            // add button to move item to right panel
-            const addButton = document.createElement('button');
-            const addText = document.createTextNode('+');
-            addButton.appendChild(addText);
-            addButton.addEventListener('click', function() {
-                addItemToRightPanel(item);
-            });
-            newLi.appendChild(addButton);
-
-            leftPanelList.appendChild(newLi);
+        .panel {
+          display: flex;
+          flex-direction: column;
+          flex-basis: 40%;
+          border: 1px solid #ccc;
+          padding: 20px;
+          margin-bottom: 20px;
         }
 
-        addItemToLeftPanel('Item 1');
-        addItemToLeftPanel('Item 2');
-        addItemToLeftPanel('Item 3');
-        addItemToLeftPanel('Item 4');
+        .panel h2 {
+          margin-top: 0;
+          font-size: 22px;
+        }
+        .panel-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: stretch;
+        }
 
-    </script>
-</body>
-</html>
+        .panel-container ul {
+          flex-basis: 48%;
+          border: 1px solid #ccc;
+          padding: 20px;
+          margin-bottom: 20px;
+        }
+
+        .panel-container ul:last-child {
+          margin-left: 10px;
+        }
+
+        .list {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .list-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 0;
+          border-bottom: 1px solid #ccc;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .list-item span {
+          flex: 1;
+          margin-right: 10px;
+        }
+
+        .button-container {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: auto;
+        }
+
+        .button {
+          margin-left: 10px;
+          padding: 5px 10px;
+          color: #fff;
+          background-color: #007bff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .add-button:hover,
+        .remove-button:hover {
+          background-color: #0062cc;
+        }
+
+        .remove-button {
+          background-color: #dc3545;
+        }
+
+        .remove-button:hover {
+          background-color: #c82333;
+        }
+        .sub-panel {
+          display: flex;
+          flex-direction: column;
+          flex-basis: 48%;
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 20px;
+        }
+        .required::before {
+          content: "* ";
+          color: red;
+        }
+        input[type="text"] {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+          margin-bottom: 20px;
+        }
+      </style>
+    </head>
+
+    <body>
+      <div class="container">
+        <div class="panel">
+          <h2>Resources</h2>
+          <div class="sub-panel">
+            <ul id="list" class="list"></ul>
+          </div>
+          <h2>Data sources</h2>
+          <div class="sub-panel">
+            <ul id="list2" class="list"></ul>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Selected Items</h2>
+          <div style="float: right">
+            <!-- <input type="text" placeholder="Project name" />
+            <input type="text" placeholder="Github repo name" /> -->
+            <label for="project-name"
+              >Project Name<span class="required"></span
+            ></label>
+            <input type="text" id="project-name" />
+            <label for="github-repo">Github Repo Name</label>
+            <input type="text" id="github-repo" />
+          </div>
+
+          <ul class="list selected-list"></ul>
+          <div class="button-container">
+            <button class="clear-button button">Reset</button>
+            <button
+              class="save-button button"
+              class="btn"
+              onclick="saveAlert()"
+            >
+              Save
+            </button>
+            <button class="submit-button button" onclick="submitAlert()">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const selectedList = document.querySelector(".selected-list");
+        const addButtons = document.querySelectorAll(".add-button");
+        // const saveButton = document.querySelector(".save-button");
+
+        // saveButton.addEventListener("click", () => {
+        //   alert("Items have been saved!");
+        // });
+
+        // const submitButton = document.querySelector(".submit-button");
+        // submitButton.addEventListener("click", () => {
+        //   alert("Items have been submitted!");
+        // });
+        const clearButton = document.querySelector(".clear-button");
+        clearButton.addEventListener("click", () => {
+          selectedList.innerHTML = "";
+        });
+
+        function createListItem(item) {
+          const listItem = document.createElement("li");
+          listItem.classList.add("list-item");
+
+          const itemName = document.createElement("span");
+          itemName.textContent = item.name;
+
+          const addButton = document.createElement("button");
+          addButton.classList.add("add-button", "button");
+          addButton.textContent = "+";
+          addButton.addEventListener("click", () => {
+            // Code to add item to right panel goes here!
+            //   alert("test");
+            const itemText = addButton.previousElementSibling.textContent;
+            const listItem = document.createElement("li");
+            listItem.classList.add("list-item");
+            listItem.innerHTML = `
+            <span>${itemText}</span>
+            <button class="remove-button button">-</button>
+          `;
+            selectedList.appendChild(listItem);
+
+            const removeButton = listItem.querySelector(".remove-button");
+            removeButton.addEventListener("click", () => {
+              listItem.remove();
+            });
+          });
+
+          listItem.appendChild(itemName);
+          listItem.appendChild(addButton);
+          return listItem;
+        }
+
+        //   return listItem;
+        // }
+        fetch("./data.json")
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            // If response is not ok, throw an Error with a custom message
+            throw new Error("Network response was not ok.");
+          })
+          .then((data) => {
+            for (const item of data) {
+              const listItem = createListItem(item);
+              const listItem2 = createListItem(item);
+              document.getElementById("list").appendChild(listItem);
+              document.getElementById("list2").appendChild(listItem2);
+            }
+          })
+          .catch((error) => {
+            // Handle any errors and log or display them
+            console.error("Error:", error);
+          });
+
+        function saveAlert() {
+          let projectName = document
+            .getElementById("project-name")
+            .value.trim();
+          if (projectName === "") {
+            alert("Please enter a project name.");
+            return;
+          }
+          document.querySelector(".save-button").innerHTML = "Saving...";
+          // perform save operation
+          setTimeout(function () {
+            document.querySelector(".save-button").innerHTML = "Save";
+            alert("Saved successfully!");
+          }, 200);
+        }
+
+        function submitAlert() {
+          let projectName = document
+            .getElementById("project-name")
+            .value.trim();
+          if (projectName === "") {
+            alert("Please enter a project name.");
+            return;
+          }
+          document.querySelector(".submit-button").innerHTML = "Submitting...";
+          // perform save operation
+          setTimeout(function () {
+            document.querySelector(".submit-button").innerHTML = "Submit";
+            alert("Submitted successfully!");
+          }, 200);
+        }
+      </script>
+    </body>
+  </html>
+</DOCTYPE>
